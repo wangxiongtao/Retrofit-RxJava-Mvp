@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Wed Feb 07 17:23:11 GMT+08:00 2018
+0.baseType=DIRECTORY
+0.base=E\:\\ASWorkSpace\\Retrofit-RxJava-Mvp\\RetrofitRxJavaMvp\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+0.path=classes.dex
+0.set=DEX
+count=1
