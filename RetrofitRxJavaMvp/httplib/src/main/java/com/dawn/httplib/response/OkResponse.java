@@ -26,6 +26,10 @@ public class OkResponse {
         this.resultJson = resultJson;
         this.request = request;
     }
+    public OkResponse(OkRequest request, String resultJson) {
+        this.resultJson = resultJson;
+        this.request = request;
+    }
     public OkResponse() {
     }
 

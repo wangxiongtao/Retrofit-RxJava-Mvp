@@ -4,10 +4,13 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 /**
@@ -20,4 +23,8 @@ public interface APIInterface {
     @FormUrlEncoded
     @POST
     Observable<Response<ResponseBody>> doPost(@Url String Url, @FieldMap HashMap<String, String> map);
+
+    @Streaming
+    @GET
+    Call<ResponseBody> doDownload(@Url String Url);
 }

@@ -15,6 +15,7 @@ import io.reactivex.disposables.Disposable;
 public  class BaseObserver implements Observer<OkResponse> {
     private HttpCallBack callBack;
     private IRequest request;
+    private boolean isDownload;
 
     public BaseObserver(IRequest request,HttpCallBack callBack) {
         this.request = request;
@@ -22,19 +23,27 @@ public  class BaseObserver implements Observer<OkResponse> {
 
     }
 
+    public Observer<OkResponse> setDownload(boolean download) {
+        isDownload = download;
+        return this;
+    }
+
     @Override
     public void onSubscribe(Disposable d) {
         if(callBack!=null){
-            callBack.onHttpStart(request.getTag());
+            callBack.onHttpStart(request.getTag(),d);
         }
 
     }
 
     @Override
     public void onNext(OkResponse value) {
-
+        OkLogPrinter.logSucess(isDownload,value);
         if(callBack!=null){
-            OkLogPrinter.logSucess(value);
+            if(isDownload){
+                callBack.onProgress(request.getTag(),value.getTotalSize(),value.getCurrentSize(),value.getPercent());
+                return;
+            }
             callBack.onHttpSuccess(request.getTag(),value.getBaseResult().data);
         }
 

@@ -1,15 +1,18 @@
-package com.dawn.httplib.retrofit;
+package com.dawn.httplib;
 
 
-import com.dawn.httplib.API;
-import com.dawn.httplib.BaseObserver;
-import com.dawn.httplib.HttpCallBack;
+import com.dawn.httplib.handler.DownloadHandler;
 import com.dawn.httplib.interceptor.HeadInterceptor;
 import com.dawn.httplib.request.IRequest;
+import com.dawn.httplib.request.OkRequest;
+import com.dawn.httplib.retrofit.APIInterface;
+import com.dawn.httplib.retrofit.function.PostResponseFun;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -29,12 +32,13 @@ public class RetrofitManager {
     public static RetrofitManager getInstance() {
         return SingletonHolder.instance;
     }
+
     private OkHttpClient getOkHttpClient() {
         return new OkHttpClient.Builder()
                 .readTimeout(30, TimeUnit.SECONDS)//设置读取超时时间
                 .writeTimeout(30, TimeUnit.SECONDS)//设置写的超时时间
                 .connectTimeout(30, TimeUnit.SECONDS)//设置连接超时时间
-//                .addInterceptor(new HeadInterceptor())
+                .addInterceptor(new HeadInterceptor())
                 .build();
     }
 
@@ -46,19 +50,17 @@ public class RetrofitManager {
                 .build();
     }
 
-
-//    public Observable<OkResponse> sendPostRequest1(final OkRequest... request) {
-//        List<Observable<OkResponse>>list=new ArrayList<>();
-//        for (int i=0;i<request.length;i++){
-//            list.add(request[i].getObservable(retrofit));
-//
-//        }
-//        return  Observable.mergeDelayError(list);
-//
-//    }
     public RetrofitManager sendPostRequest(IRequest request) {
-          request.getObservable(retrofit).subscribe(new BaseObserver(request,callBack));
-          return this;
+        request.getObservable(retrofit, new PostResponseFun((OkRequest) request))
+                .subscribe(new BaseObserver(request, callBack));
+        return this;
+
+    }
+
+    public RetrofitManager sendDownloadRequest(IRequest request) {
+        Call<ResponseBody> call = retrofit.create(APIInterface.class).doDownload(request.getUrl());
+        DownloadHandler.downloadFile(call, (OkRequest) request).subscribe(new BaseObserver(request, callBack).setDownload(true));
+        return this;
 
     }
 

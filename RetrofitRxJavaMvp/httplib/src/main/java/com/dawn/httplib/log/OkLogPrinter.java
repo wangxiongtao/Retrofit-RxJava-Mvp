@@ -12,8 +12,12 @@ import com.dawn.httplib.response.OkResponse;
 
 public class OkLogPrinter {
     private static String TAG="okhttp";
-    public static void logSucess(OkResponse response){
+    public static void logSucess(boolean isDownload,OkResponse response){
         if(BuildConfig.DEBUG){
+            if(isDownload){
+                Log.i(TAG,"=下载信息===文件总大小=>"+response.getTotalSize()+"==当前下载大小==>"+response.getCurrentSize()+"==下载进度==>"+response.getPercent()+"%");
+                return;
+            }
             Log.e(TAG,"\n--------------------------------------请求成功---------------------------------------------      ");
             Log.e(TAG,"\n请求成功"+(response==null?"\n响应结果==>OkResponse response==null":response.toString()));
         }

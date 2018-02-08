@@ -3,11 +3,8 @@ package com.dawn.httplib.request;
 
 
 
-import com.dawn.httplib.HttpCallBack;
-import com.dawn.httplib.response.BaseResult;
 import com.dawn.httplib.response.OkResponse;
 import com.dawn.httplib.retrofit.APIInterface;
-import com.dawn.httplib.retrofit.function.ResponseFun;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -15,6 +12,7 @@ import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -96,10 +94,10 @@ public abstract class OkRequest<T> implements IRequest {
     }
 
     @Override
-    public  Observable<OkResponse> getObservable(Retrofit retrofit){
+    public  Observable<OkResponse> getObservable(Retrofit retrofit, Function<Response<ResponseBody>,OkResponse> fun){
         return retrofit.create(APIInterface.class)
                 .doPost(getUrl(), getParamMap())
-                .map(new ResponseFun(this)).subscribeOn(Schedulers.io())
+                .map(fun).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

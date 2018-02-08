@@ -5,6 +5,7 @@ package com.dawn.httplib.retrofit.function;
 import com.dawn.httplib.exception.HttpException;
 import com.dawn.httplib.handler.ResponseHandler;
 import com.dawn.httplib.log.OkLogPrinter;
+import com.dawn.httplib.request.IRequest;
 import com.dawn.httplib.request.OkRequest;
 import com.dawn.httplib.response.BaseResult;
 import com.dawn.httplib.response.OkResponse;
@@ -21,10 +22,10 @@ import static com.dawn.httplib.exception.HttpException.RESULT_NO_ERROR_CODE;
  * Created by Administrator on 2018/2/6 0006.
  */
 
-public class ResponseFun implements Function<Response<ResponseBody>,OkResponse> {
+public class PostResponseFun implements Function<Response<ResponseBody>,OkResponse> {
     private OkRequest request;
 
-    public ResponseFun(OkRequest request) {
+    public PostResponseFun(OkRequest request) {
         this.request = request;
     }
 
