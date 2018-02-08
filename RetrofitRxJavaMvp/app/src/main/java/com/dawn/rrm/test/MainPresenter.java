@@ -20,7 +20,7 @@ public class MainPresenter extends BasePresenter {
 
     }
     public void downLoadData(OkRequest request){
-        IModel.getInstance().downLoad(request,this);
+        IModel.getInstance().download(request,this);
 
     }
 //    public void getData2(OkRequest request){

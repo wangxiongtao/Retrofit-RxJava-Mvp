@@ -1,17 +1,15 @@
 package com.dawn.rrm.test;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-import com.dawn.httplib.handler.ResponseHandler;
-import com.dawn.httplib.log.OkLogPrinter;
 import com.dawn.httplib.response.BaseResult;
-import com.dawn.httplib.response.OkResponse;
-import com.dawn.httplib.retrofit.RetrofitManager;
 import com.dawn.rrm.R;
 import com.dawn.rrm.base.BaseActivity;
 import com.dawn.rrm.base.BasePresenter;
@@ -19,11 +17,9 @@ import com.dawn.rrm.test.response.GoodsListBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.List;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity {
     public static final int REQUEST_TAG1=1;
@@ -43,6 +39,7 @@ public class MainActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         t1=findViewById(R.id.t1);
         t2=findViewById(R.id.t2);
+        progressBar=findViewById(R.id.progress);
 
 
 
@@ -96,35 +93,60 @@ public class MainActivity extends BaseActivity {
     @Override
     public void handlerdownload(int tag, long total, long current, int percent) {
         super.handlerdownload(tag, total, current, percent);
-        Log.i("aaa","tag=====>"+tag+"==handlerdownload===>"+total+"=====>"+current+"=====percent==>"+percent);
-        progressBar.setMax(100);
         progressBar.setProgress(percent);
+        if(percent==100){
+            Toast.makeText(this,"下载成功",0).show();
+        }
     }
 
+    @Override
+    public void handlerErrorView(int tag, String errorMsg) {
+        super.handlerErrorView(tag, errorMsg);
+    }
 
     public void onClick(View v){
-        final MainRequest request=new MainRequest(REQUEST_TAG1);
-        request.proTypeCode="101";
-        request.currentPageNum="1";
-        request.pageCount="10";
-        final MainRequest request3=new MainRequest(45);
-        request3.proTypeCode="101";
-        request3.currentPageNum="1";
-        request3.pageCount="10";
-        presenter.getData(request);
+        switch (v.getId()){
+            case R.id.post:
+                final MainRequest request=new MainRequest(REQUEST_TAG1);
+                request.proTypeCode="101";
+                request.currentPageNum="1";
+                request.pageCount="10";
+
+                final MainRequest request3=new MainRequest(45);
+                request3.proTypeCode="101";
+                request3.currentPageNum="1";
+                request3.pageCount="10";
+
+                MainRequest2 request2=new MainRequest2(REQUEST_TAG2);
+                request2.productId="15010021771";
+
+                //同时请求三个request
+                presenter.getData(request);
+                presenter.getData(request2);
+                presenter.getData(request3);
+
+
+
+
+                break;
+
+            case R.id.download:
+
+
+                DownLoadRequest request1=new DownLoadRequest();
+                request1.setDownLoadDir(Environment.getExternalStorageDirectory()+ File.separator+"test");
+                request1.setFileName("kaochao.apk");
+                presenter.downLoadData(request1);
+                break;
+
+        }
+
 
 //
-//        DownLoadRequest request1=new DownLoadRequest();
-//        request1.setDownLoadDir(Environment.getExternalStorageDirectory()+ File.separator+"test");
-//        request1.setFileName("kaochao.apk");
-//
-//        presenter.downLoadData(request1);
 
 
-        MainRequest2 request2=new MainRequest2(REQUEST_TAG2);
-        request2.productId="15010021771";
-        presenter.getData(request2);
-        presenter.getData(request3);
+
+
 
     }
 

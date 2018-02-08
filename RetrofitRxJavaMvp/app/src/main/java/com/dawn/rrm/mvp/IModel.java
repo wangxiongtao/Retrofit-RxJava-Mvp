@@ -2,8 +2,8 @@ package com.dawn.rrm.mvp;
 
 
 import com.dawn.httplib.HttpCallBack;
+import com.dawn.httplib.RetrofitManager;
 import com.dawn.httplib.request.IRequest;
-import com.dawn.httplib.retrofit.RetrofitManager;
 
 /**
  * Created by Administrator on 2018/1/19 0019.
@@ -24,8 +24,8 @@ public class IModel {
         RetrofitManager.getInstance().setCallBack(callBack).sendPostRequest(request);
     }
 
-    public void downLoad(IRequest request, HttpCallBack callBack) {
-
+    public void download(IRequest request, HttpCallBack callBack) {
+        RetrofitManager.getInstance().setCallBack(callBack).sendDownloadRequest(request);
     }
 
 

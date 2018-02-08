@@ -8,9 +8,22 @@
     tools:context="com.dawn.rrm.test.MainActivity">
 
     <Button
+        android:id="@+id/post"
         android:layout_width="match_parent"
         android:onClick="onClick"
+        android:text="post请求"
         android:layout_height="50dp"/>
+    <Button
+        android:id="@+id/download"
+        android:layout_width="match_parent"
+        android:onClick="onClick"
+        android:text="下载文件"
+        android:layout_height="50dp"/>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"/>
 
     <TextView
         android:id="@+id/t1"

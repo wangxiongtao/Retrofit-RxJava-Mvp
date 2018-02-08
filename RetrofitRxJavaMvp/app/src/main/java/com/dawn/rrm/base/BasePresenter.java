@@ -9,12 +9,15 @@ import com.dawn.rrm.mvp.IView;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by Administrator on 2018/1/19 0019.
  */
 
 public abstract class BasePresenter implements IPresenter,HttpCallBack {
     private WeakReference<IView> viewRef;
+    private Disposable d;
 
     public BasePresenter(IView view){
         viewRef=new WeakReference<>(view);
@@ -29,7 +32,8 @@ public abstract class BasePresenter implements IPresenter,HttpCallBack {
     }
 
     @Override
-    public void onHttpStart(int tag) {
+    public void onHttpStart(int tag,Disposable d) {
+        this.d=d;
         if(getView()!=null){
             getView().showLoading();
         }
@@ -69,6 +73,9 @@ public abstract class BasePresenter implements IPresenter,HttpCallBack {
     @Override
     public void onDestroy() {
        if(viewRef!=null){
+           if(d!=null){
+               d.dispose();
+           }
            viewRef.clear();
            viewRef=null;
        }
