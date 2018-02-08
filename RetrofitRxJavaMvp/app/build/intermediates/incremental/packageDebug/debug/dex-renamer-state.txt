@@ -1,4 +1,0 @@
-#Wed Feb 07 17:23:11 GMT+08:00 2018
-base.0=E\:\\ASWorkSpace\\Retrofit-RxJava-Mvp\\RetrofitRxJavaMvp\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex

@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config=":httplib"><source path="E:\ASWorkSpace\Retrofit-RxJava-Mvp\RetrofitRxJavaMvp\httplib\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="E:\ASWorkSpace\Retrofit-RxJava-Mvp\RetrofitRxJavaMvp\app\src\main\assets"/><source path="E:\ASWorkSpace\Retrofit-RxJava-Mvp\RetrofitRxJavaMvp\app\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\ASWorkSpace\Retrofit-RxJava-Mvp\RetrofitRxJavaMvp\app\src\debug\assets"/></dataSet></merger>
