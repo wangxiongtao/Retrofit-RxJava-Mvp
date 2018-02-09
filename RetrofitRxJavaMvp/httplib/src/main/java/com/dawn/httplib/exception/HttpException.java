@@ -10,7 +10,7 @@ import com.dawn.httplib.response.OkResponse;
 
 public class HttpException extends Exception {
     public static final String SERVER_ERROR_MSG = "服务器连接失败";
-    public static final String JSON_ERROR_MSG = "数据解析异常";
+    public static final String JSON_ERROR_MSG = "数据解析错误";
     public static final String DATA_NULL_ERROR_MSG = "返回数据为空";
     public static final String DOWNLOAD_ERROR_MSG = "下载异常";
     public static final int RESULT_NO_ERROR_CODE = 0;//返回BaseResult.code=0000(结果无错误)

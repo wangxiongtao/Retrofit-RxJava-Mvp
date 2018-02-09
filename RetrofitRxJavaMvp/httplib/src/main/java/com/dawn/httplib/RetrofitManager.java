@@ -1,18 +1,18 @@
 package com.dawn.httplib;
 
 
-import com.dawn.httplib.handler.DownloadHandler;
 import com.dawn.httplib.interceptor.HeadInterceptor;
 import com.dawn.httplib.request.IRequest;
 import com.dawn.httplib.request.OkRequest;
 import com.dawn.httplib.retrofit.APIInterface;
+import com.dawn.httplib.retrofit.function.DownloadFun;
 import com.dawn.httplib.retrofit.function.PostResponseFun;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -51,17 +51,24 @@ public class RetrofitManager {
     }
 
     public RetrofitManager sendPostRequest(IRequest request) {
-        request.getObservable(retrofit, new PostResponseFun((OkRequest) request))
+        retrofit.create(APIInterface.class)
+                .doPost(request.getUrl(), request.getParamMap())
+                .map(new PostResponseFun((OkRequest) request))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver(request, callBack));
         return this;
 
     }
 
-    public RetrofitManager sendDownloadRequest(IRequest request) {
-        Call<ResponseBody> call = retrofit.create(APIInterface.class).doDownload(request.getUrl());
-        DownloadHandler.downloadFile(call, (OkRequest) request).subscribe(new BaseObserver(request, callBack).setDownload(true));
+    public RetrofitManager sendDownloadRequest(final IRequest request) {
+        retrofit.create(APIInterface.class)
+                .doDownload(request.getUrl())
+                .flatMap(new DownloadFun(request))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver(request, callBack).setDownload(true));
         return this;
-
     }
 
 

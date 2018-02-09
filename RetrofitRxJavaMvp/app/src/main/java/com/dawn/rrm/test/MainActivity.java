@@ -2,24 +2,18 @@ package com.dawn.rrm.test;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.dawn.httplib.response.BaseResult;
 import com.dawn.rrm.R;
 import com.dawn.rrm.base.BaseActivity;
 import com.dawn.rrm.base.BasePresenter;
 import com.dawn.rrm.test.response.GoodsListBean;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
-import java.lang.reflect.Type;
-import java.util.List;
+
 
 public class MainActivity extends BaseActivity {
     public static final int REQUEST_TAG1=1;
@@ -95,7 +89,7 @@ public class MainActivity extends BaseActivity {
         super.handlerdownload(tag, total, current, percent);
         progressBar.setProgress(percent);
         if(percent==100){
-            Toast.makeText(this,"下载成功",0).show();
+            Toast.makeText(this,"下载成功",Toast.LENGTH_SHORT).show();
         }
     }
 

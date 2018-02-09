@@ -2,8 +2,6 @@ package com.dawn.httplib.handler;
 
 
 
-import android.util.Log;
-
 import com.dawn.httplib.exception.HttpException;
 import com.dawn.httplib.request.OkRequest;
 import com.dawn.httplib.response.OkResponse;
@@ -13,17 +11,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 
 import static com.dawn.httplib.exception.HttpException.DOWNLOAD_ERROR_CODE;
@@ -35,7 +28,7 @@ import static com.dawn.httplib.exception.HttpException.DOWNLOAD_ERROR_MSG;
  */
 
 public class DownloadHandler {
-    public static Observable<OkResponse> downloadFile(final Call<ResponseBody> call, final OkRequest request) {
+    public static Observable<OkResponse> downloadFile(final Response<ResponseBody> response, final OkRequest request) {
        return  Observable.create(new ObservableOnSubscribe<OkResponse>() {
             @Override
             public void subscribe(ObservableEmitter<OkResponse> ee) throws Exception {
@@ -52,7 +45,6 @@ public class DownloadHandler {
                     if (file.exists()) {
                         file.delete();
                     }
-                    Response<ResponseBody> response = call.execute();
                     okResponse = new OkResponse(request,response, "这是一个下载的响应结果");
                     byte[] buf = new byte[2048];
                     int len;
