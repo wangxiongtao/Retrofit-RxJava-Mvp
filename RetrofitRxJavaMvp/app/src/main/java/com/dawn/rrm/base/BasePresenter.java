@@ -1,9 +1,9 @@
 package com.dawn.rrm.base;
 
 
-
-
 import com.dawn.httplib.HttpCallBack;
+import com.dawn.httplib.request.IRequest;
+import com.dawn.rrm.mvp.IModel;
 import com.dawn.rrm.mvp.IPresenter;
 import com.dawn.rrm.mvp.IView;
 
@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * Created by Administrator on 2018/1/19 0019.
  */
 
-public abstract class BasePresenter implements IPresenter,HttpCallBack {
+public  class BasePresenter implements IPresenter,HttpCallBack {
     private WeakReference<IView> viewRef;
     private Disposable d;
 
@@ -29,6 +29,11 @@ public abstract class BasePresenter implements IPresenter,HttpCallBack {
             return null;
         }
         return viewRef.get();
+    }
+
+    @Override
+    public void sendPostRequest(IRequest request) {
+        IModel.getInstance().post(request,this);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.dawn.httplib.handler;
 import com.dawn.httplib.API;
 import com.dawn.httplib.exception.HttpException;
 import com.dawn.httplib.request.IRequest;
-import com.dawn.httplib.request.OkRequest;
 import com.dawn.httplib.response.BaseResult;
 import com.dawn.httplib.response.OkResponse;
 import com.google.gson.Gson;
@@ -13,8 +12,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import io.reactivex.exceptions.CompositeException;
-import okhttp3.Call;
 import okhttp3.Response;
 
 import static com.dawn.httplib.exception.HttpException.DATA_NULL_ERROR_CODE;
@@ -37,8 +34,6 @@ public class ResponseHandler {
     public static Throwable checkException(Throwable e,IRequest request) {
         if(e instanceof IOException){
             return new HttpException(SERVER_CONNECT_ERROR_CODE,SERVER_ERROR_MSG).setUrl(API.BASE_URL+request.getUrl());
-        }else if(e instanceof HttpException){
-            return e;
         }
         return e;
     }

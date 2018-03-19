@@ -1,6 +1,7 @@
 package com.dawn.rrm.test;
 
 
+import com.dawn.httplib.request.IRequest;
 import com.dawn.httplib.request.OkRequest;
 import com.dawn.rrm.base.BasePresenter;
 import com.dawn.rrm.mvp.IModel;
@@ -15,10 +16,11 @@ public class MainPresenter extends BasePresenter {
         super(view);
     }
 
-    public void getData(OkRequest request){
+    @Override
+    public void sendPostRequest(IRequest request) {
         IModel.getInstance().post(request,this);
-
     }
+
     public void downLoadData(OkRequest request){
         IModel.getInstance().download(request,this);
 

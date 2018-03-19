@@ -1,13 +1,10 @@
 package com.dawn.rrm.mvp;
 
-import android.content.Context;
-
 /**
  * Created by Administrator on 2018/1/19 0019.
  */
 
 public interface IView {
-     Context getContext();
 
      void showLoading();
 
