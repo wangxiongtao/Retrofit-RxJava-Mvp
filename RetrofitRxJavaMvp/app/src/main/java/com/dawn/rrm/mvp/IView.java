@@ -15,7 +15,7 @@ public interface IView {
 
      void handlerdownload(int tag, long total, long current, int percent);
 
-     void handlerErrorView(int tag, String errorMsg);
+     void handlerError(int tag, String errorMsg);
 
 
 

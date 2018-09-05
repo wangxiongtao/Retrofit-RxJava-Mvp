@@ -144,8 +144,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void handlerErrorView(int tag, String errorMsg) {
-        super.handlerErrorView(tag, errorMsg);
+    public void handlerError(int tag, String errorMsg) {
+        super.handlerError(tag, errorMsg);
     }
 
     public void onClick(View v) {

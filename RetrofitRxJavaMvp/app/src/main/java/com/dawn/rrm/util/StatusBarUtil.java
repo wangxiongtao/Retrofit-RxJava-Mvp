@@ -13,7 +13,7 @@ import com.githang.statusbar.StatusBarCompat;
  * Created by Administrator on 2018/2/26 0026.
  */
 
-public class StatusbarUtil {
+public class StatusBarUtil {
 
     /**
      * 设置状态栏颜色

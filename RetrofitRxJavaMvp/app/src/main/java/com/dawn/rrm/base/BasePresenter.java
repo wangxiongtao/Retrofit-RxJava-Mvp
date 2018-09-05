@@ -56,7 +56,7 @@ public  class BasePresenter implements IPresenter,HttpCallBack {
     public void onHttpFail(int tag,String errorMsg) {
         if(getView()!=null){
             getView().closeLoading();
-            getView().handlerErrorView(tag,errorMsg);
+            getView().handlerError(tag,errorMsg);
         }
 
     }

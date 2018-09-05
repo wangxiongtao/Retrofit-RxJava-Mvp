@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.dawn.rrm.R;
 import com.dawn.rrm.mvp.IView;
 import com.dawn.rrm.test.MainActivity;
-import com.dawn.rrm.util.StatusbarUtil;
+import com.dawn.rrm.util.StatusBarUtil;
 import com.dawn.rrm.view.EmptyView;
 
 
@@ -71,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
             setListener();
             initData();
         }
-        StatusbarUtil.setContentToStatusbar(this);
+        StatusBarUtil.setContentToStatusbar(this);
 
 
     }
@@ -166,7 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void handlerErrorView(int tag, String errorMsg) {
+    public void handlerError(int tag, String errorMsg) {
         Toast.makeText(this,"tag=="+tag+"==msg==="+errorMsg,0).show();
     }
 
